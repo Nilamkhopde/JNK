@@ -1,0 +1,153 @@
+/* 🌟 ROOT COLORS (Modern Warm Theme) */
+:root {
+  --primary: #ff7a18;
+  --primary-dark: #e36414;
+  --accent: #ffb347;
+  --bg-glass: hsla(245, 100%, 34%, 0.795);
+  --text-light: #f5f5f5;
+  --text-muted: #d6d6d6;
+}
+
+/* 🌟 Navbar Base */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(12px);
+  background: var(--bg-glass);
+  transition: all 0.3s ease;
+}
+
+/* 🔥 Scroll Effect */
+.navbar.scrolled {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 122, 24, 0.95),
+    rgba(227, 100, 20, 0.95)
+  );
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+/* Menu */
+.nav-list {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+
+/* Menu Items */
+.nav-list li {
+  position: relative;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+/* ✨ Underline Animation */
+.nav-list li::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Hover */
+.nav-list li:hover {
+  color: var(--text-light);
+  transform: translateY(-1px);
+}
+
+.nav-list li:hover::after {
+  width: 100%;
+}
+
+/* Active */
+.nav-list .active {
+  color: #ffffff;
+}
+
+.nav-list .active::after {
+  width: 100%;
+}
+
+/* 🔘 CTA Button (Important modern touch) */
+.cta-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 122, 24, 0.4);
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 122, 24, 0.6);
+}
+
+/* 🍔 Hamburger */
+.menu-icon {
+  display: none;
+  font-size: 26px;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+/* 📱 Mobile Design */
+@media (max-width: 768px) {
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-list {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 260px;
+    flex-direction: column;
+    background: rgba(30, 20, 10, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 25px;
+    gap: 18px;
+
+    border-left: 1px solid rgba(255, 122, 24, 0.2);
+
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+  }
+
+  .nav-list.open {
+    transform: translateX(0);
+  }
+
+  .nav-list li {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+  }
+}

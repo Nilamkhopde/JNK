@@ -1,0 +1,13 @@
+/* CENTERED CONTENT (NOT FULL WIDTH) */
+.container {
+  width: 1200px;        /* fixed width */
+  margin: 0 auto;       /* center align */
+}
+
+.page-title {
+  text-align: left;
+  padding: 12px 0;
+  padding-left: 30px;   /* ✅ adds left space */
+  font-size: 18px;
+  color: #444;
+}

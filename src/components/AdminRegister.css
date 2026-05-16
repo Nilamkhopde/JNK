@@ -1,0 +1,148 @@
+/* ===== PAGE BACKGROUND ===== */
+.admin-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff8c00, #ff5e00);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== CARD ===== */
+.admin-card {
+  width: 380px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ===== TITLE ===== */
+.admin-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* ===== INPUT FIELDS ===== */
+.admin-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+/* INPUT FOCUS */
+.admin-card input:focus {
+  border-color: #ff7a00;
+  box-shadow: 0 0 5px rgba(255,122,0,0.4);
+  outline: none;
+}
+
+/* ===== BUTTON ===== */
+.admin-card button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff8c00, #ff5e00);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* HOVER */
+.admin-card button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* DISABLED */
+.admin-card button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ===== TOGGLE TABS ===== */
+.admin-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* ACTIVE TAB */
+.admin-tabs .active {
+  background: #ff7a00;
+  color: white;
+}
+
+
+/* ADD HERE */
+.link {
+  margin-top: 18px;
+  text-align: center;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #ff6b00;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.link:hover {
+  color: #e85d04;
+  text-decoration: underline;
+}
+
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ===== BOTTOM LOGIN LINK ===== */
+.bottom-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #555;
+}
+
+.bottom-link span {
+  color: #ff6b00;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bottom-link span:hover {
+  text-decoration: underline;
+  color: #e85d04;
+}

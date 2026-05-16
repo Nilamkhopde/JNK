@@ -1,0 +1,86 @@
+/* RESET */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* MAIN SECTION */
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #fff;
+  flex-wrap: wrap;
+}
+
+/* LOGO AREA */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* LOGO IMAGE */
+.logo-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* TITLE */
+.logo h2 {
+  color: #10074c;
+  font-size: 25px;
+  margin: 0;
+}
+
+/* RIGHT IMAGE */
+.right-image img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ===================== */
+/* 📱 TABLET */
+/* ===================== */
+@media (max-width: 992px) {
+  .logo h2 {
+    font-size: 18px;
+  }
+
+  .right-image img {
+    width: 140px;
+  }
+}
+
+/* ===================== */
+/* 📱 MOBILE */
+/* ===================== */
+@media (max-width: 600px) {
+  .top-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .logo {
+    flex-direction: column;
+  }
+
+  .logo h2 {
+    font-size: 16px;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .right-image img {
+    width: 120px;
+  }
+}
