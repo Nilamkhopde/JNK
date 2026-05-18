@@ -1678,8 +1678,6 @@ const currentContent = filteredContent.slice(first, last);
       </div>
 
 
-
-
       {/* TOAST CONTAINER */}
       <ToastContainer
         position="top-right"
