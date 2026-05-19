@@ -84,7 +84,11 @@ function Navbar() {
   const [sections, setSections] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const menu = ["Home", "Admin"];
+ const menu = [
+  "Home",
+  "Downloads",
+  "Admin"
+];
 
   useEffect(() => {
     fetchSections();
@@ -133,10 +137,14 @@ function Navbar() {
             key={item}
             onClick={() =>
               navigate(
-                item === "Home"
-                  ? "/"
-                  : "/admin"
-              )
+
+  item === "Home"
+    ? "/"
+    : item === "Downloads"
+    ? "/downloads"
+    : "/admin"
+
+)
             }
           >
             {item}

@@ -89,6 +89,17 @@ useEffect(() => {
   const [sectionName, setSectionName] = useState("");
 
   const [open, setOpen] = useState(true);
+
+  const [files, setFiles] = useState([]);
+
+//* Download const*//
+const [fileForm, setFileForm] = useState({
+  fileName: "",
+  fileType: "",
+  files: []
+});
+
+const [selectedFile, setSelectedFile] = useState(null);
   
 
   useEffect(() => {
@@ -101,6 +112,11 @@ useEffect(() => {
 }, [search]);
   const [currentPage, setCurrentPage] = useState(1);
 const usersPerPage = 5;
+
+//*LOAD FILES*//
+useEffect(() => {
+  fetchFiles();
+}, []);
 
   // ================= FETCH =================
   const fetchUsers = async () => {
@@ -480,6 +496,165 @@ const handleUpdateContent = async () => {
   }
 };
 
+//* FILE FUNCTION*//
+const handleUploadFiles = async () => {
+
+  try {
+
+    if (fileForm.files.length === 0) {
+
+      toast.error("Select Files ❌");
+
+      return;
+    }
+
+    const formData = new FormData();
+
+   fileForm.files.forEach((file) => {
+  formData.append("files", file);
+});
+    
+
+    // ✅ CUSTOM VALUES
+    formData.append(
+      "fileName",
+      fileForm.fileName
+    );
+
+    formData.append(
+      "fileType",
+      fileForm.fileType
+    );
+
+    await axios.post(
+      "http://localhost:8080/api/files/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success(
+      "Files Uploaded Successfully ✅"
+    );
+
+    fetchFiles();
+
+    // RESET
+    setFileForm({
+      fileName: "",
+      fileType: "",
+      files: []
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    toast.error("Upload Failed ❌");
+  }
+};
+
+
+//*delete file funtion*//
+const handleDeleteFile = async (id) => {
+
+  if (!window.confirm("Delete file?")) return;
+
+  try {
+
+    await axios.delete(
+      `http://localhost:8080/api/files/delete/${id}`
+    );
+
+    toast.success("File Deleted ✅");
+
+    fetchFiles();
+
+  } catch (err) {
+
+    console.log(err);
+
+    toast.error("Delete Failed ❌");
+  }
+};
+
+const handleDownloadFile = (id) => {
+
+  window.open(
+    `http://localhost:8080/api/files/download/${id}`,
+    "_blank"
+  );
+};
+
+const handleUpdateFile = async () => {
+
+  try {
+
+    const formData = new FormData();
+
+    // FILE
+    if (selectedFile.newFile) {
+      formData.append(
+        "file",
+        selectedFile.newFile
+      );
+    }
+
+    // FILE NAME
+    formData.append(
+      "fileName",
+      selectedFile.fileName
+    );
+
+    // FILE TYPE
+    formData.append(
+      "fileType",
+      selectedFile.fileType
+    );
+
+    await axios.put(
+      `http://localhost:8080/api/files/update/${selectedFile.id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success("File Updated ✅");
+
+    setModalType("");
+
+    fetchFiles();
+
+  } catch (err) {
+
+    console.log(err);
+
+    toast.error("Update Failed ❌");
+  }
+};
+
+const fetchFiles = async () => {
+  try {
+
+    const res = await axios.get(
+      "http://localhost:8080/api/files/getAllFiles"
+    );
+
+    setFiles(res.data);
+
+  } catch (err) {
+
+    console.log(err);
+
+  }
+};
+
 // ===== COPY CONTENT =====
 const copyContent = () => {
   const text = filteredContent
@@ -558,6 +733,7 @@ const last = contentPage * contentPerPage;
 const first = last - contentPerPage;
 const currentContent = filteredContent.slice(first, last);
   return (
+    
     <div className="dashboard">
 
 {/* SIDEBAR */}
@@ -621,6 +797,14 @@ const currentContent = filteredContent.slice(first, last);
       <span>📝</span>
       {open && <span>Content</span>}
     </li>
+
+    <li
+  className={activeMenu === "downloads" ? "active" : ""}
+  onClick={() => setActiveMenu("downloads")}
+>
+  <span>📥</span>
+  {open && <span>Downloads</span>}
+</li>
 
     <li
       className={activeMenu === "settings" ? "active" : ""}
@@ -997,7 +1181,88 @@ const currentContent = filteredContent.slice(first, last);
 
 
 
-            
+{/* ========================================= */}
+{/* EDIT FILE MODAL */}
+{/* ========================================= */}
+
+{modalType === "editFile" && selectedFile && (
+
+  <div className="modal-overlay">
+
+    <div className="update-popup">
+
+      <button
+        className="close-popup"
+        onClick={() => setModalType("")}
+      >
+        ✕
+      </button>
+
+      <h2>Update File</h2>
+
+      <div className="update-form">
+
+      {/* FILE NAME */}
+<input
+  type="text"
+  placeholder="Enter File Name"
+  value={selectedFile.fileName || ""}
+  onChange={(e) =>
+    setSelectedFile({
+      ...selectedFile,
+      fileName: e.target.value
+    })
+  }
+/>
+
+{/* FILE TYPE */}
+<input
+  type="text"
+  placeholder="Enter File Type"
+  value={selectedFile.fileType || ""}
+  onChange={(e) =>
+    setSelectedFile({
+      ...selectedFile,
+      fileType: e.target.value
+    })
+  }
+/>
+
+        <input
+          type="file"
+          onChange={(e) =>
+            setSelectedFile({
+              ...selectedFile,
+              newFile: e.target.files[0]
+            })
+          }
+        />
+
+        <div className="update-btns">
+
+          <button
+            className="save-update-btn"
+            onClick={handleUpdateFile}
+          >
+            Update File
+          </button>
+
+          <button
+            className="cancel-btn"
+            onClick={() => setModalType("")}
+          >
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+)}
          
 
           {/* ========================================= */}
@@ -1284,6 +1549,197 @@ const currentContent = filteredContent.slice(first, last);
   </div>
 
   
+)}
+
+
+{/* ========================================= */}
+{/* DOWNLOADS */}
+{/* ========================================= */}
+
+{activeMenu === "downloads" && (
+
+  <div className="download-layout">
+<div className="download-form">
+
+  <h3>Upload Files</h3>
+
+  {/* FILE NAME */}
+      <input
+        type="text"
+        placeholder="Enter File Name"
+        value={fileForm.fileName}
+        onChange={(e) =>
+          setFileForm({
+            ...fileForm,
+            fileName: e.target.value
+          })
+        }
+      />
+
+
+  {/* FILE TYPE */}
+  <input
+    type="text"
+    placeholder="Enter File Type"
+    value={fileForm.fileType}
+    onChange={(e) =>
+      setFileForm({
+        ...fileForm,
+        fileType: e.target.value
+      })
+    }
+  />
+
+ {/* FILE */}
+<input
+  type="file"
+  multiple
+  onChange={(e) => {
+
+    const newFiles = Array.from(e.target.files);
+
+    setFileForm({
+      ...fileForm,
+
+      // ✅ keep old files + add new files
+      files: [
+        ...fileForm.files,
+        ...newFiles
+      ]
+    });
+
+  }}
+/>
+
+{/* SELECTED FILES */}
+<div className="selected-files">
+
+  {fileForm.files.length > 0 && (
+
+    <ul>
+
+      {fileForm.files.map((file, index) => (
+
+        <li key={index}>
+
+          {file.name}
+
+          <button
+            type="button"
+            onClick={() => {
+
+              const updatedFiles =
+                fileForm.files.filter(
+                  (_, i) => i !== index
+                );
+
+              setFileForm({
+                ...fileForm,
+                files: updatedFiles
+              });
+
+            }}
+          >
+            ❌
+          </button>
+
+        </li>
+
+      ))}
+
+    </ul>
+
+  )}
+
+</div>
+
+<button
+  className="upload-btn"
+  onClick={handleUploadFiles}
+>
+  ⬆ Upload Files
+</button>
+
+</div>
+
+    {/* RIGHT SIDE */}
+    <div className="download-table">
+
+      <div className="download-top">
+
+        <h3>All Files</h3>
+
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>File Type</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {files.map((f) => (
+
+            <tr key={f.id}>
+
+              <td>{f.id}</td>
+
+              <td>{f.fileName}</td>
+
+              <td>{f.fileType}</td>
+
+              <td className="action-buttons">
+
+                <button
+                  className="btn download"
+                  onClick={() =>
+                    handleDownloadFile(f.id)
+                  }
+                >
+                  ⬇ Download
+                </button>
+
+                <button
+                  className="btn edit"
+                  onClick={() => {
+                    setSelectedFile(f);
+                    setModalType("editFile");
+                  }}
+                >
+                  ✏ Edit
+                </button>
+
+                <button
+                  className="btn delete"
+                  onClick={() =>
+                    handleDeleteFile(f.id)
+                  }
+                >
+                  🗑 Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
 )}
 {activeMenu === "settings" && admin && (
   <div className="admin-settings-page">

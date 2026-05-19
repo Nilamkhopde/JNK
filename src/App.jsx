@@ -9,11 +9,13 @@ import AdminDashboard from "./components/AdminDashboard";
 import Loader from "./components/Loader";
 
 
+
 // ✅ PAGES
 import Users from "./components/Users";
 import Section from "./components/Section";
 import Content from "./components/Content";
 import SectionPage from "./components/SectionPage";
+import DownloadsPage from "./components/DownloadsPage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -65,6 +67,11 @@ function App() {
 
         {/* ADMIN LOGIN */}
         <Route path="/admin" element={<AdminAuth />} />
+
+        <Route
+  path="/downloads"
+  element={<DownloadsPage />}
+/>
 
         {/* DASHBOARD */}
         <Route path="/dashboard" element={<AdminDashboard />} />
