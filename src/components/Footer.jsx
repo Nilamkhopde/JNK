@@ -1,43 +1,71 @@
-<footer className="footer">
-  <div className="footer-container">
-    
+import React from "react";
+import "./Footer.css";
 
-    {/* LEFT - BRAND */}
-    <div className="footer-section">
-      <h2 className="logo">Your Organization</h2>
-      <p className="footer-desc">
-        Building a better platform with modern technology and clean design.
-      </p>
-    </div>
+function Footer() {
+  return (
+    <footer className="footer">
 
-    {/* CENTER - LINKS */}
-    <div className="footer-section">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a href="#">Downloads</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
+      <div className="footer-container">
 
-    {/* RIGHT - CONTACT */}
-    <div className="footer-section">
-      <h3>Contact</h3>
-      <p>Email: support@example.com</p>
-      <p>Phone: +91 9876543210</p>
-    </div>
+        {/* LEFT SECTION */}
+        <div className="footer-section">
+          <h2 className="footer-logo">Janlok Pratishthan</h2>
 
-  </div>
+          <p className="footer-description">
+            Building a better society with modern technology, transparency,
+            and community support.
+          </p>
+        </div>
 
-  {/* BOTTOM */}
-  <div className="footer-bottom">
-    <p>© 2026 Your Organization. All rights reserved.</p>
-  </div>
-</footer>
+        {/* CENTER SECTION */}
+        <div className="footer-section">
+          <h3 className="footer-title">Quick Links</h3>
 
+          <ul className="footer-links">
+            <li>
+              <a href="/">Home</a>
+            </li>
 
+            <li>
+              <a href="/events">Events</a>
+            </li>
 
+            <li>
+              <a href="/downloads">Downloads</a>
+            </li>
+
+            <li>
+              <a href="/news">News</a>
+            </li>
+
+            <li>
+              <a href="/contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        {/* RIGHT SECTION */}
+        <div className="footer-section">
+          <h3 className="footer-title">Contact Us</h3>
+
+          <p>Email: support@janlok.org</p>
+
+          <p>Phone: +91 9876543210</p>
+
+          <p>Pune, Maharashtra, India</p>
+        </div>
+
+      </div>
+
+      {/* BOTTOM */}
+      <div className="footer-bottom">
+        <p>
+          © 2026 Janlok Pratishthan. All Rights Reserved.
+        </p>
+      </div>
+
+    </footer>
+  );
+}
 
 export default Footer;

@@ -4,9 +4,11 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import TopSection from "./components/TopSection";
 import FormSec from "./components/FormSec";
+import Footer from "./components/Footer";
 import AdminAuth from "./components/AdminAuth";
 import AdminDashboard from "./components/AdminDashboard";
 import Loader from "./components/Loader";
+import CustomCursor from "./components/CustomCursor";
 
 
 
@@ -30,6 +32,8 @@ function Home() {
       <TopSection />
    <Navbar />
       <FormSec />
+      <Footer />
+    
     </>
   );
 }
@@ -54,13 +58,12 @@ function App() {
     return <Loader />;
   }
 
-  return (
-    <BrowserRouter>
+return (
+  <BrowserRouter>
 
-    
+    <CustomCursor />
 
-
-      <Routes>
+    <Routes>
 
         {/* HOME */}
         <Route path="/" element={<Home />} />
